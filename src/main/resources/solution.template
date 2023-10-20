@@ -1,0 +1,11 @@
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class %CLASS_NAME% {
+//BEGIN_TESTS
+//END_TESTS
+
+//BEGIN_SOLUTION
+%SOLUTION_CONTENT%
+//END_SOLUTION
+}
