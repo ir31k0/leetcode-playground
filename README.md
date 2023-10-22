@@ -7,7 +7,7 @@ Unfortunately I didn't find a way to debug the code locally.
 
 With this project, I would like to focus on the following points:
 - to have a simple solution for the manual process
-- implementation of GraphQL queries
+- work with GraphQL (client side)
 - Java code generation
 - use one of the latest Java lts (update to Java 21 soon)
 - use Gradle with Kotlin build configuration
