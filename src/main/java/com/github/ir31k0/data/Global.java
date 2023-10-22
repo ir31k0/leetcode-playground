@@ -1,13 +1,11 @@
 package com.github.ir31k0.data;
 
+import com.github.ir31k0.helper.FileHelper;
 import com.google.gson.Gson;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,33 +27,12 @@ public class Global {
             paths
                     .filter(Files::isRegularFile)
                     .filter(path -> path.getFileName().toString().endsWith(".query"))
-                    .forEach(path -> {
-                        try {
-                            QUERIES.put(path.getFileName().toString().split("\\.")[0], com.google.common.io.Files.toString(path.toFile(), StandardCharsets.UTF_8));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+                    .forEach(path -> QUERIES.put(FileHelper.fileNameWithoutSuffix(path), FileHelper.read(path)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static final String SOLUTION_TEMPLATE;
-    static {
-        try {
-            SOLUTION_TEMPLATE = com.google.common.io.Files.toString(new File("src/main/resources/solution.template"), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static final String SESSION_TOKEN;
-    static {
-        try {
-            SESSION_TOKEN = com.google.common.io.Files.toString(new File("session-token.txt"), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public static final String SOLUTION_TEMPLATE = FileHelper.read("src/main/resources/solution.template");
+    public static final String SESSION_TOKEN = FileHelper.read("session-token.txt");
 }

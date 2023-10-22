@@ -1,8 +1,8 @@
 package com.github.ir31k0.task;
 
 import com.github.ir31k0.conversion.TypeToDefaultValue;
-import com.github.ir31k0.data.TestClassInfo;
 import com.github.ir31k0.data.Global;
+import com.github.ir31k0.data.TestClassInfo;
 import com.github.ir31k0.helper.FileHelper;
 import com.google.common.base.CaseFormat;
 import com.sun.source.tree.ClassTree;
@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,7 +43,7 @@ public class WriteTestClass {
     public static TestClassInfo extendClass(String path) {
         final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, StandardCharsets.UTF_8)) {
-            final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(Arrays.asList(new File(path)));
+            final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(List.of(new File(path)));
             final JavacTask javacTask = (JavacTask) compiler.getTask(null, fileManager, null, null, null, compilationUnits);
             final Iterable<? extends CompilationUnitTree> compilationUnitTrees = javacTask.parse();
             final ClassTree classTree = (ClassTree) compilationUnitTrees.iterator().next().getTypeDecls().get(0);
@@ -58,7 +57,7 @@ public class WriteTestClass {
                     .map(MethodTree.class::cast)
                     .findFirst().orElseThrow();
             String returnType = method.getReturnType().toString();
-            String javaClass = com.google.common.io.Files.toString(new File(path), StandardCharsets.UTF_8);
+            String javaClass = FileHelper.read(path);
             Pattern p = Pattern.compile(".+ (\\w+)\\(.+\\) \\{\\R\\s*()\\R\\s*\\}", Pattern.MULTILINE);
             Matcher m = p.matcher(javaClass);
             if (!m.find()) {

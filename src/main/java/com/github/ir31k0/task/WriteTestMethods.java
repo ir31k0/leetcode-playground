@@ -1,18 +1,14 @@
 package com.github.ir31k0.task;
 
-import com.github.ir31k0.data.TestClassInfo;
 import com.github.ir31k0.conversion.TestcaseToInitialization;
+import com.github.ir31k0.data.TestClassInfo;
 import com.github.ir31k0.helper.FileHelper;
-import com.google.common.io.Files;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WriteTestMethods {
-    public static void write(TestClassInfo info, List<String> testcases, List<String> expectedAnswers) throws IOException {
+    public static void write(TestClassInfo info, List<String> testcases, List<String> expectedAnswers) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < testcases.size(); i++) {
             builder
@@ -27,7 +23,7 @@ public class WriteTestMethods {
                     .append("));\n}\n");
         }
 
-        String testClassContent = Files.asCharSource(new File(info.getPath()), StandardCharsets.UTF_8).read();
+        String testClassContent = FileHelper.read(info.getPath());
         String newTestClassContent = testClassContent.substring(0, testClassContent.indexOf("//BEGIN_TESTS") + 13) + // "//BEGIN_TESTS".length = 13
                 builder +
                 testClassContent.substring(testClassContent.indexOf("//END_TESTS"));
