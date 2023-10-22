@@ -2,19 +2,16 @@ package com.github.ir31k0.task;
 
 import com.github.ir31k0.helper.RequestHelper;
 import com.github.ir31k0.data.Global;
-import com.github.ir31k0.response.interpretsolution.CheckResponse;
+import com.github.ir31k0.response.CheckResponse;
 import lombok.Builder;
-import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CodeRunner {

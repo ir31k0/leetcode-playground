@@ -1,24 +1,31 @@
 package com.github.ir31k0.response;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
+@Data
 public class QuestionEditorData {
-    public Data data;
-    public static class CodeSnippet{
-        public String lang;
-        public String langSlug;
-        public String code;
+    private Data data;
+
+    @lombok.Data
+    public static class CodeSnippet {
+        private String lang;
+        private String langSlug;
+        private String code;
     }
 
-    public static class Data{
-        public Question question;
+    @lombok.Data
+    public static class Data {
+        private Question question;
     }
 
-    public static class Question{
-        public String questionId;
-        public String questionFrontendId;
-        public ArrayList<CodeSnippet> codeSnippets;
-        public String envInfo;
-        public boolean enableRunCode;
+    @lombok.Data
+    public static class Question {
+        private String questionId;
+        private String questionFrontendId;
+        private ArrayList<CodeSnippet> codeSnippets;
+        private String envInfo;
+        private boolean enableRunCode;
     }
 }

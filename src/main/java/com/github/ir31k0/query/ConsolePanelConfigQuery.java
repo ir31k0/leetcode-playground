@@ -2,7 +2,7 @@ package com.github.ir31k0.query;
 
 import com.github.ir31k0.data.Global;
 import com.github.ir31k0.helper.RequestHelper;
-import com.github.ir31k0.response.consolepanelconfig.ConsolePanelConfig;
+import com.github.ir31k0.response.ConsolePanelConfig;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;

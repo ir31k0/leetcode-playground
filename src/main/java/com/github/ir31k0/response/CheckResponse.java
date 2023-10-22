@@ -1,4 +1,4 @@
-package com.github.ir31k0.response.interpretsolution;
+package com.github.ir31k0.response;
 
 import java.util.ArrayList;
 
