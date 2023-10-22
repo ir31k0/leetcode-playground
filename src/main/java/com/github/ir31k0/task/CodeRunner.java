@@ -62,18 +62,18 @@ public class CodeRunner {
     private static CheckResponse waitForCheckCompleted(String interpretId, Request request) throws IOException {
         // TODO Move everything into a try catch and remove throws
         System.out.print("Wait for complete..");
+        String url = getCheckUrl(interpretId);
+        HttpGet get = new HttpGet(url);
+        get.addHeader("Content-Type", "application/json");
+        get.addHeader("Accept", "*/*");
+        get.addHeader("User-Agent", Global.USER_AGENT);
+        get.addHeader("Cookie", "csrftoken=" + request.csrfToken + "; LEETCODE_SESSION=" + request.sessionToken);
+        // TODO Refactor urls -> move into Global class
+        get.addHeader("Referer", "https://leetcode.com/problems/" + request.questionSlug + "/description/");
+        get.addHeader("Origin", "https://leetcode.com");
+        get.addHeader("X-Csrftoken", request.csrfToken);
         int currentTry = 0;
         while (currentTry++ < CHECK_MAX_TRIES) {
-            String url = getCheckUrl(interpretId);
-            HttpGet get = new HttpGet(url);
-            get.addHeader("Content-Type", "application/json");
-            get.addHeader("Accept", "*/*");
-            get.addHeader("User-Agent", Global.USER_AGENT);
-            get.addHeader("Cookie", "csrftoken=" + request.csrfToken + "; LEETCODE_SESSION=" + request.sessionToken);
-            // TODO Refactor urls -> move into Global class
-            get.addHeader("Referer", "https://leetcode.com/problems/" + request.questionSlug + "/description/");
-            get.addHeader("Origin", "https://leetcode.com");
-            get.addHeader("X-Csrftoken", request.csrfToken);
             String textResponseBody = Global.CLIENT.execute(get, response -> {
                 String responseBody = EntityUtils.toString(response.getEntity());
                 if (response.getCode() == 200) {
